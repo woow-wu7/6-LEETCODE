@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 题目：平衡二叉树
+
+      // 问题：什么是平衡二叉树
+      // 回答：一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1
+
+      // 思路
+      // - 1. 先递归获取左右子树的高度
+      // - 2. 在判断每一个的左右子树的高度是否满足 平衡二叉树的条件，判断平衡二叉树同样的递归判断
+
+      // 英语
+      // balance 平衡 n
+      // balanced 平衡的 adj
+
+      /**
+       * Definition for a binary tree node.
+       * function TreeNode(val, left, right) {
+       *     this.val = (val===undefined ? 0 : val)
+       *     this.left = (left===undefined ? null : left)
+       *     this.right = (right===undefined ? null : right)
+       * }
+       */
+      /**
+       * @param {TreeNode} root
+       * @return {boolean}
+       */
+      var isBalanced = function (root) {
+
+        // 获取二叉树的高度
+        function getDepth(root) {
+          if (!root) return 0;
+          const leftDepth = getDepth(root.left);
+          const rightDepth = getDepth(root.right);
+          return Math.max(leftDepth, rightDepth) + 1;
+        }
+
+        if (!root) return true; // ------- 递归结束的条件，是平衡二叉树
+        const leftDepth = getDepth(root.left); // 参数节点的左子树的高度
+        const rightDepth = getDepth(root.right); // 参数节点的右子树的高度
+        const diff = Math.abs(leftDepth - rightDepth); // 左右子树的高度差的绝对值
+        if (diff > 1) return false; // --- 左右子树高度差绝对值大于1，就不是平衡二叉树
+
+        return isBalanced(root.left) && isBalanced(root.right); // 递归判断左右子树是否是平衡二叉树
+        // 注意：
+        // - 这里传入的参数是 isBalanced(root.left)
+        // - 在 isBalanced 函数中又会去  getDepth(root.left)，即获取的是 root.left.left，不断递归
+        // - 右边同理
+      };
+    </script>
+  </body>
+</html>
