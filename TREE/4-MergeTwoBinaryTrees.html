@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 题目 合并两颗二叉树
+
+      // 合并规则
+      // 1. 将他们的值相加作为节点合并后的新值
+      // 2. 否则不为 NULL 的节点将直接作为新二叉树的节点
+
+      // 示例
+      // 输入:
+      // Tree 1                     Tree 2
+      //         1                         2
+      //       / \                       / \
+      //       3   2                     1   3
+      //     /                           \   \
+      //     5                             4   7
+      // 输出:
+      // 合并后的树:
+      //       3
+      //       / \
+      //     4   5
+      //     / \   \
+      //   5   4   7
+
+      /**
+       * Definition for a binary tree node.
+       * function TreeNode(val, left, right) {
+       *     this.val = (val===undefined ? 0 : val)
+       *     this.left = (left===undefined ? null : left)
+       *     this.right = (right===undefined ? null : right)
+       * }
+       */
+      /**
+       * @param {TreeNode} root1
+       * @param {TreeNode} root2
+       * @return {TreeNode}
+       */
+      var mergeTrees = function (root1, root2) {
+        function merge(root1, root2) {
+          if (!root1) return root2;
+          if (!root2) return root1; // 两个递归结束的条件，即其中一个叶子节点不存在就返回另一个叶子，即使另一个节点的值是null
+
+          root1.val = root1.val + root2.val; // 合并根节点值
+          root1.left = merge(root1.left, root2.left);
+          root1.right = merge(root1.right, root2.right);
+
+          return root1; // 以root1为基准进行合并
+        }
+
+        return merge(root1, root2);
+      };
+    </script>
+  </body>
+</html>

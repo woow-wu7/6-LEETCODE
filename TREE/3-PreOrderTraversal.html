@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 题目 前序遍历二叉树
+
+      // 前序
+      // 根 - 左子树 - 右子树
+
+      // 英语
+      // traversal 遍历
+
+      // 示例
+      // 输入：root = [1,null,2,3]
+      // 输出：[1,2,3]
+      // --
+      // 输入：root = []
+      // 输出：[]
+      // --
+      // 输入：root = [1]
+      // 输出：[1]
+
+      /**
+       * Definition for a binary tree node.
+       * function TreeNode(val, left, right) {
+       *     this.val = (val===undefined ? 0 : val)
+       *     this.left = (left===undefined ? null : left)
+       *     this.right = (right===undefined ? null : right)
+       * }
+       */
+      /**
+       * @param {TreeNode} root
+       * @return {number[]}
+       */
+      var preorderTraversal = function (root) {
+        const result = [];
+
+        function traversal(root) {
+          if (!root) return;
+
+          result.push(root.val); // 根先进入
+          traversal(root.left); // 递归遍历左子树
+          traversal(root.right);
+        }
+
+        traversal(root);
+
+        return result;
+      };
+    </script>
+  </body>
+</html>
