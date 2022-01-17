@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 题目
+      // 给定一个二叉搜索树的 **根节点** `root` 和一个整数 `k` , 请判断该二叉搜索树中是否存在两个节点它们的值之和等于 `k`
+      // 假设二叉搜索树中节点的值均唯一。
+
+      // 输入: root = [8,6,10,5,7,9,11], k = 12
+      // 输出: true
+      // 解释: 节点 5 和节点 7 之和等于 12
+
+      // 输入: root = [8,6,10,5,7,9,11], k = 22
+      // 输出: false
+      // 解释: 不存在两个节点值之和为 22 的节点
+
+      /**
+       * Definition for a binary tree node.
+       * function TreeNode(val, left, right) {
+       *     this.val = (val===undefined ? 0 : val)
+       *     this.left = (left===undefined ? null : left)
+       *     this.right = (right===undefined ? null : right)
+       * }
+       */
+      /**
+       * @param {TreeNode} root
+       * @param {number} k
+       * @return {boolean}
+       */
+      var findTarget = function (root, k) {
+        // 1. 先遍历
+        const res = []; // 将树转成数组
+        function traversal(root) {
+          if (!root) return;
+          traversal(root.left);
+          res.push(root.val);
+          traversal(root.right);
+        }
+        traversal(root);
+
+        // 2. 数组中寻在结果
+        for (let i = 0; i < res.length; i++) {
+          const dis = k - res[i];
+          if (res.includes(dis) && dis !== res[i]) return true;
+        }
+        return false;
+      };
+    </script>
+  </body>
+</html>
