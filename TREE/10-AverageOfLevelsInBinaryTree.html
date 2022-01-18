@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 题目
+      // - 二叉树的层平均值
+      // - Average of Levels in Binary Tree
+      // - 给定一个非空二叉树, 返回一个由每层节点平均值组成的数组。
+
+      // 思路
+      // - 和 BFS 遍历的大概思路相同，唯一不同的时收到到的层成员数组是平和的平均值
+
+      // 英语
+      // - average 平均值
+
+      // 示例
+      // 输入：
+      //     3
+      //   / \
+      //   9  20
+      //     /  \
+      //   15   7
+      // 输出：[3, 14.5, 11]
+      // 解释：
+      // 第 0 层的平均值是 3 ,  第1层是 14.5 , 第2层是 11 。因此返回 [3, 14.5, 11]
+
+      /**
+       * Definition for a binary tree node.
+       * function TreeNode(val, left, right) {
+       *     this.val = (val===undefined ? 0 : val)
+       *     this.left = (left===undefined ? null : left)
+       *     this.right = (right===undefined ? null : right)
+       * }
+       */
+      /**
+       * @param {TreeNode} root
+       * @return {number[]}
+       */
+      var averageOfLevels = function (root) {
+        // 先 BSF，在bfs的过程中，搜集每一层的成员数组，然后求平均
+        if (!root) return [];
+        const queue = [root];
+        const result = [];
+
+        while (queue.length) {
+          const temp = []; // 没层的节点组成的数组
+          const len = queue.length;
+
+          for (let i = 0; i < len; i++) {
+            const current = queue.shift();
+            temp.push(current.val);
+            if (current.left) {
+              queue.push(current.left);
+            }
+            if (current.right) {
+              queue.push(current.right);
+            }
+          }
+
+          // 下面是和 BFS 广度优先遍历不同的点
+          if (temp.length) {
+            const average = temp.reduce((a, b) => a + b) / temp.length; // 这里是否要保留小数，可以 number.toFixed(2) 保留两位有效数字
+            result.push(average);
+          }
+        }
+
+        return result;
+      };
+    </script>
+  </body>
+</html>
