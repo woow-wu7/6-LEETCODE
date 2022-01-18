@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 题目
+      // - 相同的树
+      // - 给你两棵二叉树的根节点 p 和 q ，编写一个函数来检验这两棵树是否相同
+      // - 如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的
+
+      // 对比
+      // 相同树 和 对称树 的判断类似
+
+      /**
+       * Definition for a binary tree node.
+       * function TreeNode(val, left, right) {
+       *     this.val = (val===undefined ? 0 : val)
+       *     this.left = (left===undefined ? null : left)
+       *     this.right = (right===undefined ? null : right)
+       * }
+       */
+      /**
+       * @param {TreeNode} p
+       * @param {TreeNode} q
+       * @return {boolean}
+       */
+      var isSameTree = function (p, q) {
+        // 递归判断
+        function traversal(p, q) {
+          if (!p && !q) return true; // 保证此条件在最前面，表示如果直到不能遍历了还是相等的，必然相等
+          if (!p || !q) return false; // 结构不一样，必然不相等
+          if (p.val !== q.val) return false; // 每个节点值不一样，必然不相等
+
+          return traversal(p.left, q.left) && traversal(p.right, q.right); // 保证左子树和右子树同时为true才为true
+        }
+
+        return traversal(p, q);
+      };
+    </script>
+  </body>
+</html>
